@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Login from "./Components/auth/login";
+import SignUp from "./Components/auth/signup";
+import PrivateRoute from "./Components/auth/privateRoute";
+import Home from "./Components/dashboard/home";
+import UploadBooks from "./Components/books/uploadBook";
+import BookPage from "./Components/books/book";
+import SearchPage from "./Components/dashboard/searchPage";
+import NotFoundPage from "./Components/error/404page";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/" element={<PrivateRoute />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/upload-book" element={<UploadBooks />} />
+          <Route path="/books/search/:query" element={<SearchPage />} />
+          <Route path="/books/:id" element={<BookPage />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </div>
   );
 }

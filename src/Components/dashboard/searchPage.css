@@ -1,0 +1,8 @@
+.searchCardTitle {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.searchCardTitle:hover {
+  color: orangered;
+}

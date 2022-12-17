@@ -1,0 +1,50 @@
+.uploadBooksForm {
+  max-width: 60%;
+  margin: auto;
+  padding: 50px 50px 10px 50px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  border-radius: 20px;
+}
+
+.form-row {
+  margin-bottom: 20px;
+}
+
+.formButton {
+  width: 50% !important;
+  margin: auto;
+}
+
+.renderBooks {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  max-width: 80%;
+  margin-left: auto;
+}
+
+.cardContent {
+  text-align: left;
+}
+
+.card_parent {
+  box-shadow: none !important;
+  cursor: pointer;
+  padding-top: 10px;
+}
+
+.card_parent:hover {
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22) !important;
+}
+
+.cardImage {
+  width: 80% !important;
+  margin: auto;
+}
+
+.pagination {
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 50px;
+}
