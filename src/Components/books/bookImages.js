@@ -16,6 +16,7 @@ const BookImages = ({ images }) => {
 
     return () => {
       if (imagesRef.current?.children[imageBorder]) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         imagesRef.current.children[imageBorder].style.border = "";
       }
     };

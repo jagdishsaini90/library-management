@@ -34,9 +34,6 @@ const Books = () => {
         })
         .catch((err) => {
           setError(err.response.data);
-          if (err.response.data === "Please login!") {
-            navigate("/login");
-          }
         });
     };
 
@@ -47,9 +44,11 @@ const Books = () => {
     };
   }, [page]);
 
-  if (error === "Please login!") {
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (error === "Please login!") {
+      navigate("/login");
+    }
+  }, [error, navigate]);
 
   return (
     <>
