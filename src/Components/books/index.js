@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Alert, Pagination } from "@mui/material";
+import React, { Suspense, lazy, useEffect, useState } from "react";
+import { Alert, CircularProgress, Pagination } from "@mui/material";
 import { axiosInstance } from "../../axios/axiosIntercepters";
-import BookCard from "./bookCard";
 import { useNavigate } from "react-router-dom";
+import "./style.css";
+import BookCardSkeleton from "./bookCardSkeleton";
+const BookCard = lazy(() => import("./bookCard"));
 
 const Books = () => {
   const [books, setBooks] = useState([]);
@@ -53,9 +55,14 @@ const Books = () => {
   return (
     <>
       {error && <Alert severity="error">{error}</Alert>}
+
       <div className="renderBooks">
         {books?.map((doc, i) => {
-          return <BookCard doc={doc} key={i} />;
+          return (
+            <Suspense key={i} fallback={<BookCardSkeleton />}>
+              <BookCard doc={doc} key={i} />
+            </Suspense>
+          );
         })}
         {books?.length === 0 ? <h1>No books present at the Moment!</h1> : null}
       </div>

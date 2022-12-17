@@ -1,27 +1,88 @@
-import "./App.css";
+import React, { Suspense, lazy } from "react";
+import { CircularProgress } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
-import Login from "./Components/auth/login";
-import SignUp from "./Components/auth/signup";
-import PrivateRoute from "./Components/auth/privateRoute";
-import Home from "./Components/dashboard/home";
-import UploadBooks from "./Components/books/uploadBook";
-import BookPage from "./Components/books/book";
-import SearchPage from "./Components/dashboard/searchPage";
-import NotFoundPage from "./Components/error/404page";
+const Login = lazy(() => import("./Components/auth/login"));
+const SignUp = lazy(() => import("./Components/auth/signup"));
+const PrivateRoute = lazy(() => import("./Components/auth/privateRoute"));
+const Home = lazy(() => import("./Components/dashboard/home"));
+const UploadBooks = lazy(() => import("./Components/books/uploadBook"));
+const BookPage = lazy(() => import("./Components/books/book"));
+const SearchPage = lazy(() => import("./Components/dashboard/searchPage"));
+const NotFoundPage = lazy(() => import("./Components/error/404page"));
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/" element={<PrivateRoute />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/upload-book" element={<UploadBooks />} />
-          <Route path="/books/search/:query" element={<SearchPage />} />
-          <Route path="/books/:id" element={<BookPage />} />
+        <Route
+          path="/login"
+          element={
+            <Suspense fallback={<CircularProgress />}>
+              <Login />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path="/signup"
+          element={
+            <Suspense fallback={<CircularProgress />}>
+              <SignUp />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<CircularProgress />}>
+              <PrivateRoute />
+            </Suspense>
+          }
+        >
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <Home />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/upload-book"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <UploadBooks />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/books/search/:query"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <SearchPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/books/:id"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <BookPage />
+              </Suspense>
+            }
+          />
         </Route>
-        <Route path="*" element={<NotFoundPage />} />
+
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<CircularProgress />}>
+              <NotFoundPage />
+            </Suspense>
+          }
+        />
       </Routes>
     </div>
   );

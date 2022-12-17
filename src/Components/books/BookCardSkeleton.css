@@ -1,0 +1,68 @@
+.BookCardSkeleton_card {
+  max-width: 300px;
+  height: 347px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px #ddd;
+}
+.BookCardSkeleton_card .BookCardSkeleton_header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.BookCardSkeleton_header .BookCardSkeleton_img {
+  width: 200px;
+  height: 200px;
+  background: #d9d9d9;
+  position: relative;
+  overflow: hidden;
+}
+
+.BookCardSkeleton_card .BookCardSkeleton_description {
+  margin: 25px 0;
+}
+.BookCardSkeleton_description .BookCardSkeleton_line {
+  background: #d9d9d9;
+  border-radius: 10px;
+  height: 13px;
+  margin: 10px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.BookCardSkeleton_description .BookCardSkeleton_line-1 {
+  width: calc(100% - 15%);
+}
+.line-2 {
+  height: 70px !important;
+}
+.BookCardSkeleton_header .BookCardSkeleton_img::before,
+.BookCardSkeleton_description .BookCardSkeleton_line::before {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    #d9d9d9 0%,
+    rgba(0, 0, 0, 0.07) 20%,
+    #d9d9d9 40%,
+    #d9d9d9 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 450px 400px;
+  animation: shimmer 1s linear infinite;
+}
+.BookCardSkeleton_header .BookCardSkeleton_img::before {
+  background-size: 650px 600px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -450px 0;
+  }
+  100% {
+    background-position: 450px 0;
+  }
+}

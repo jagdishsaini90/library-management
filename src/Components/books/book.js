@@ -1,8 +1,8 @@
-import { Alert } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Alert, CircularProgress } from "@mui/material";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { axiosInstance } from "../../axios/axiosIntercepters";
-import BookImages from "./bookImages";
+const BookImages = lazy(() => import("./bookImages"));
 
 const BookPage = () => {
   const [book, setBook] = useState({});
@@ -35,7 +35,9 @@ const BookPage = () => {
     <>
       {error && <Alert severity="error">{error}</Alert>}
       <div className="book">
-        <BookImages images={book.imageLink} />
+        <Suspense fallback={<CircularProgress />}>
+          <BookImages images={book.imageLink} />
+        </Suspense>
         <div className="book_right">
           <h1>{book.title}</h1>
         </div>
