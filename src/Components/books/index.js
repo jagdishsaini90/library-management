@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect, useState } from "react";
-import { Alert, CircularProgress, Pagination } from "@mui/material";
+import { Alert, Pagination } from "@mui/material";
 import { axiosInstance } from "../../axios/axiosIntercepters";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
