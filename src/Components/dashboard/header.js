@@ -3,17 +3,15 @@ import {
   AppBar,
   Box,
   Toolbar,
-  IconButton,
   Typography,
   Container,
-  Avatar,
   Button,
-  Tooltip,
 } from "@mui/material";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import { useNavigate } from "react-router-dom";
 import SearchBox from "./searchBox";
 import { useAuthContext } from "../auth/authProvider";
+import LogoutComponent from "./logoutComponent";
 
 function Header() {
   const navigate = useNavigate();
@@ -77,14 +75,7 @@ function Header() {
             }}
           >
             <SearchBox />
-
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-            </Box>
+            <LogoutComponent />
           </div>
         </Toolbar>
       </Container>
