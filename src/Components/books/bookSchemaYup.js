@@ -10,7 +10,9 @@ export const bookSchema = Yup.object().shape({
     .max(new Date().getFullYear())
     .required("year is required"),
   pages: Yup.number().min(1).required("pages is required"),
-  description: Yup.string().required("description is required"),
+  description: Yup.string()
+    .required("description is required")
+    .min(300, "minimum length of description is required"),
   binding: Yup.string().required("binding is required"),
   publisher: Yup.string().required("publisher is required"),
 });

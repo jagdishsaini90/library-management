@@ -143,7 +143,7 @@ const UploadBooks = () => {
             fullWidth
             id="description"
             name="description"
-            label="description*"
+            label="description(minimum 200 words)*"
             rows={4}
             multiline
             value={formik.values.description}
