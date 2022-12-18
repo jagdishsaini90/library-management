@@ -8,15 +8,9 @@ const useLogin = () => {
   const { setUser, setAuthToken } = useAuthContext();
   const [success, setSuccess] = useState(false);
 
-  const handleLogin = async (e, email, password) => {
-    e.preventDefault();
+  const handleLogin = async (email, password) => {
     setError(null);
     setLoading(true);
-
-    if (!email || !password) {
-      alert("Please enter all the details");
-      return;
-    }
 
     await axiosInstance({
       method: "POST",

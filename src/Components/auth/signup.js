@@ -1,30 +1,46 @@
-import React, { useState } from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import React from "react";
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Grid,
+  Box,
+  Typography,
+  Container,
+} from "@mui/material";
+
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { NavLink, useNavigate } from "react-router-dom";
 import useRegister from "../../hooks/useRegister";
 import { Alert, CircularProgress } from "@mui/material";
+import { useFormik } from "formik";
+import { signupSchema } from "./authSchemaYup";
 
 const theme = createTheme();
 
 export default function SignUp() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const navigate = useNavigate();
 
   const { error, loading, handleRegister, success } = useRegister();
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      firstname: "",
+      lastname: "",
+    },
+    validationSchema: signupSchema,
+    onSubmit: async (values) => {
+      await handleRegister(
+        values.email,
+        values.password,
+        values.firstname + " " + values.lastname
+      );
+    },
+  });
 
   if (success) {
     navigate("/");
@@ -49,71 +65,68 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={(e) =>
-              handleRegister(e, email, password, firstName + " " + lastName)
-            }
-            sx={{ mt: 3 }}
-          >
+          <form onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
+                  margin="normal"
+                  name="firstname"
                   fullWidth
-                  id="firstName"
+                  id="firstname"
                   label="First Name"
                   autoFocus
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  value={formik.values.firstname}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.firstname && Boolean(formik.errors.firstname)
+                  }
+                  helperText={
+                    formik.touched.firstname && formik.errors.firstname
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
+                  margin="normal"
                   fullWidth
-                  id="lastName"
+                  id="lastname"
                   label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  name="lastname"
+                  value={formik.values.lastname}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.lastname && Boolean(formik.errors.lastname)
+                  }
+                  helperText={formik.touched.lastname && formik.errors.lastname}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  margin="normal"
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
-                  autoComplete="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  error={formik.touched.email && Boolean(formik.errors.email)}
+                  helperText={formik.touched.email && formik.errors.email}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  margin="normal"
                   fullWidth
                   name="password"
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.password && Boolean(formik.errors.password)
                   }
-                  label="Remember Me"
+                  helperText={formik.touched.password && formik.errors.password}
                 />
               </Grid>
             </Grid>
@@ -122,6 +135,7 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={formik.handleSubmit}
             >
               {loading ? (
                 <CircularProgress
@@ -142,7 +156,7 @@ export default function SignUp() {
                 </NavLink>
               </Grid>
             </Grid>
-          </Box>
+          </form>
         </Box>
       </Container>
     </ThemeProvider>

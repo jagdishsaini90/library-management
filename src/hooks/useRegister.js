@@ -8,14 +8,7 @@ const useRegister = () => {
   const { setUser, setAuthToken } = useAuthContext();
   const [success, setSuccess] = useState(false);
 
-  const handleRegister = async (e, email, password, name) => {
-    e.preventDefault();
-
-    if (!email || !password) {
-      alert("Please enter all the details");
-      return;
-    }
-
+  const handleRegister = async (email, password, name) => {
     setError(null);
     setLoading(true);
 

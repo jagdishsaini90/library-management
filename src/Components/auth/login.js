@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Avatar,
   Button,
@@ -6,7 +6,6 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  Link,
   Paper,
   Box,
   Grid,
@@ -20,15 +19,26 @@ import libBackground from "../../assests/libBackground.jpg";
 import { Alert } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
 import useLogin from "../../hooks/useLogin";
+import { useFormik } from "formik";
+import { loginSchema } from "./authSchemaYup";
 
 const theme = createTheme();
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const { error, handleLogin, loading, success } = useLogin();
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: loginSchema,
+    onSubmit: async (values) => {
+      await handleLogin(values.email, values.password);
+    },
+  });
 
   if (success) {
     navigate("/");
@@ -71,33 +81,33 @@ export default function Login() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={(e) => handleLogin(e, email, password)}
-              sx={{ mt: 1 }}
-            >
+            <form onSubmit={formik.handleSubmit}>
               <TextField
                 margin="normal"
-                required
                 fullWidth
                 label="Email Address"
                 name="email"
+                id="email"
                 autoComplete="email"
                 autoFocus
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
               />
               <TextField
                 margin="normal"
-                required
                 fullWidth
                 name="password"
                 label="Password"
+                id="password"
                 type="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.password && Boolean(formik.errors.password)
+                }
+                helperText={formik.touched.password && formik.errors.password}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -107,6 +117,7 @@ export default function Login() {
                 type="submit"
                 fullWidth
                 variant="contained"
+                onClick={formik.handleSubmit}
                 sx={{ mt: 3, mb: 2 }}
               >
                 {loading ? (
@@ -119,9 +130,9 @@ export default function Login() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <NavLink to="/forget-password" variant="body2">
                     Forgot password?
-                  </Link>
+                  </NavLink>
                 </Grid>
                 <Grid item>
                   <NavLink to="/signup" variant="body2">
@@ -129,7 +140,7 @@ export default function Login() {
                   </NavLink>
                 </Grid>
               </Grid>
-            </Box>
+            </form>
           </Box>
         </Grid>
       </Grid>
