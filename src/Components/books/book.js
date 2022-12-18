@@ -31,6 +31,21 @@ const BookPage = () => {
     };
   }, [id]);
 
+  useEffect(() => {
+    let isMounted = true;
+
+    if (isMounted) {
+      window.scrollTo({
+        behavior: "smooth",
+        top: 0,
+      });
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <>
       {error && <Alert severity="error">{error}</Alert>}
