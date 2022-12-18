@@ -44,6 +44,8 @@ const UploadBooks = () => {
     });
   }
 
+  console.log(images);
+
   return (
     <div>
       {error && <Alert severity="error">{error}</Alert>}

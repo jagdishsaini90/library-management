@@ -10,6 +10,7 @@ import {
   Paper,
   Box,
   Grid,
+  CircularProgress,
 } from "@mui/material";
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -18,49 +19,20 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import libBackground from "../../assests/libBackground.jpg";
 import { Alert } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuthContext } from "./authProvider";
-import { axiosInstance } from "../../axios/axiosIntercepters";
+import useLogin from "../../hooks/useLogin";
 
 const theme = createTheme();
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-  const { setUser, setAuthToken } = useAuthContext();
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError(null);
+  const { error, handleLogin, loading, success } = useLogin();
 
-    if (!email || !password) {
-      alert("Please enter all the details");
-      return;
-    }
-
-    await axiosInstance({
-      method: "POST",
-      url: "/auth/login",
-      data: JSON.stringify({
-        email,
-        password,
-      }),
-    })
-      .then(async (res) => {
-        setUser(() => res.data.user);
-        setAuthToken(() => res.data.accessToken);
-        await localStorage.setItem("userData", JSON.stringify(res.data.user));
-        await localStorage.setItem(
-          "accessToken",
-          JSON.stringify(res.data.accessToken)
-        );
-        navigate("/");
-      })
-      .catch((error) => {
-        setError(error.response.data);
-      });
-  };
+  if (success) {
+    navigate("/");
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -102,7 +74,7 @@ export default function Login() {
             <Box
               component="form"
               noValidate
-              onSubmit={handleLogin}
+              onSubmit={(e) => handleLogin(e, email, password)}
               sx={{ mt: 1 }}
             >
               <TextField
@@ -137,7 +109,13 @@ export default function Login() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                {loading ? (
+                  <CircularProgress
+                    style={{ width: "30px", height: "30px", color: "red" }}
+                  />
+                ) : (
+                  "Sign In"
+                )}
               </Button>
               <Grid container>
                 <Grid item xs>
