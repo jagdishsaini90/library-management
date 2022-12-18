@@ -49,7 +49,9 @@ const UploadBooks = () => {
       {error && <Alert severity="error">{error}</Alert>}
       {success && <Alert severity="success">Successfully uploaded!</Alert>}
 
-      <h1 className="form-row">UPLOAD BOOK</h1>
+      <h1 style={{ textAlign: "center" }} className="form-row">
+        UPLOAD BOOK
+      </h1>
 
       <form className="uploadBooksForm" onSubmit={formik.handleSubmit}>
         <div className="form-row">

@@ -4,19 +4,21 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import "./book.css";
 
 export default function BookCard({ doc }) {
   const navigate = useNavigate();
   return (
     <Card className="card_parent" sx={{ maxWidth: 300, margin: "10px" }}>
-      <CardMedia
-        className="cardImage"
-        component="img"
-        height="200"
-        image={doc.imageLink[0]}
-        alt="green iguana"
-        loading="lazy"
-      />
+      <div className="card_image_media">
+        <CardMedia
+          className="cardImage"
+          component="img"
+          image={doc.imageLink[0]}
+          alt="green iguana"
+          loading="lazy"
+        />
+      </div>
       <CardContent className="cardContent">
         <Typography
           style={{
