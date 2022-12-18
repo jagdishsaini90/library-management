@@ -9,7 +9,10 @@ import "./book.css";
 export default function BookCard({ doc }) {
   const navigate = useNavigate();
   return (
-    <Card className="card_parent" sx={{ maxWidth: 300, margin: "10px" }}>
+    <Card
+      className="card_parent"
+      sx={{ maxWidth: 300, margin: "10px", maxHeight: "550px" }}
+    >
       <div className="card_image_media">
         <CardMedia
           className="cardImage"
@@ -42,8 +45,7 @@ export default function BookCard({ doc }) {
           variant="body2"
           color="text.secondary"
         >
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging
+          {doc.description?.slice(0, 100)}...
         </Typography>
       </CardContent>
     </Card>

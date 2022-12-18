@@ -7,11 +7,11 @@ import {
   Container,
   Button,
 } from "@mui/material";
-import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import { useNavigate } from "react-router-dom";
 import SearchBox from "./searchBox";
 import { useAuthContext } from "../auth/authProvider";
 import LogoutComponent from "./logoutComponent";
+import logo from "../../assests/logo.png";
 
 function Header() {
   const navigate = useNavigate();
@@ -28,15 +28,13 @@ function Header() {
           <div
             style={{
               display: "flex",
+              alignItems: "center",
             }}
           >
-            <LibraryBooksIcon
-              sx={{
-                display: { xs: "none", md: "flex" },
-                mr: 1,
-                width: "60px",
-                height: "60px",
-              }}
+            <img
+              style={{ width: "50px", height: "50px", marginRight: "10px" }}
+              src={logo}
+              alt="logo"
             />
             <Typography
               variant="h6"

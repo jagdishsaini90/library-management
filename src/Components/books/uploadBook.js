@@ -3,6 +3,7 @@ import { Button, TextField, Alert, CircularProgress } from "@mui/material";
 import { useUploadBook } from "../../hooks/useUploadBook";
 import { useFormik } from "formik";
 import { bookSchema } from "./bookSchemaYup";
+import { NavLink } from "react-router-dom";
 import "./style.css";
 
 const UploadBooks = () => {
@@ -37,7 +38,7 @@ const UploadBooks = () => {
     },
   });
 
-  if (error || success) {
+  if (error || success.flag) {
     window.scrollTo({
       behavior: "smooth",
       top: 0,
@@ -47,7 +48,17 @@ const UploadBooks = () => {
   return (
     <div>
       {error && <Alert severity="error">{error}</Alert>}
-      {success && <Alert severity="success">Successfully uploaded!</Alert>}
+      {success.flag && (
+        <Alert severity="success">
+          Successfully uploaded!
+          <NavLink
+            style={{ marginLeft: "100px" }}
+            to={`/books/${success.link}`}
+          >
+            view book
+          </NavLink>
+        </Alert>
+      )}
 
       <h1 style={{ textAlign: "center" }} className="form-row">
         UPLOAD BOOK

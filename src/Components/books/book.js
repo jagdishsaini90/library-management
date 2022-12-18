@@ -1,4 +1,4 @@
-import { Alert, CircularProgress } from "@mui/material";
+import { Alert, CircularProgress, Typography } from "@mui/material";
 import React, { Suspense, lazy, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { axiosInstance } from "../../axios/axiosIntercepters";
@@ -39,7 +39,39 @@ const BookPage = () => {
           <BookImages images={book.imageLink} />
         </Suspense>
         <div className="book_right">
-          <h1>{book.title}</h1>
+          <Typography className="bookTitle" variant="h3">
+            {book.title}
+          </Typography>
+          <Typography style={{ fontStyle: "italic" }} variant="p">
+            by {book.author}
+          </Typography>
+          <br />
+          <br />
+          <br />
+          <Typography variant="p">
+            <b>country</b> : {book.country}
+          </Typography>
+          <br />
+          <Typography variant="p">
+            <b>pages</b> : {book.pages}
+          </Typography>
+          <br />
+          <Typography variant="p">
+            <b>year</b> : {book.year}
+          </Typography>
+          <br />
+          <Typography variant="p">
+            <b>binding</b> : {book.binding}
+          </Typography>
+          <br />
+          <Typography variant="p">
+            <b>publisher</b> : {book.publisher}
+          </Typography>
+          <br />
+          <br />
+          <Typography variant="p">
+            <b>description</b> : {book.description}
+          </Typography>
         </div>
       </div>
     </>

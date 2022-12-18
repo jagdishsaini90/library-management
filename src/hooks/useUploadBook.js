@@ -3,7 +3,10 @@ import axios from "axios";
 import { axiosInstance } from "../axios/axiosIntercepters";
 
 export const useUploadBook = () => {
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState({
+    flag: false,
+    link: "",
+  });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [imagesUrl, setImages] = useState([]);
@@ -62,8 +65,10 @@ export const useUploadBook = () => {
               book: book.data,
             }),
           })
-            .then(() => {
-              setSuccess(true);
+            .then((res) => {
+              setSuccess(() => {
+                return { flag: true, link: res.data.payload._id };
+              });
               setTimeout(() => {
                 setSuccess((prev) => !prev);
               }, 3000);
