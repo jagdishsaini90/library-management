@@ -12,8 +12,8 @@
   justify-content: center;
 }
 .BookCardSkeleton_header .BookCardSkeleton_img {
-  width: 200px;
-  height: 200px;
+  width: 280px;
+  height: 400px;
   background: #d9d9d9;
   position: relative;
   overflow: hidden;

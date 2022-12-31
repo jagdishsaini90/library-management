@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Button, TextField, Alert, CircularProgress } from "@mui/material";
-import { useUploadBook } from "../../hooks/useUploadBook";
+import { useUploadBook } from "../../../hooks/useUploadBook";
 import { useFormik } from "formik";
 import { bookSchema } from "./bookSchemaYup";
 import { NavLink } from "react-router-dom";
-import "./style.css";
+import "../style.css";
 
 const UploadBooks = () => {
   const [images, setImageValues] = useState([]);

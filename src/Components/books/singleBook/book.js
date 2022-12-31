@@ -1,7 +1,7 @@
 import { Alert, CircularProgress, Typography } from "@mui/material";
 import React, { Suspense, lazy, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { axiosInstance } from "../../axios/axiosIntercepters";
+import { axiosInstance } from "../../../axios/axiosIntercepters";
 const BookImages = lazy(() => import("./bookImages"));
 
 const BookPage = () => {

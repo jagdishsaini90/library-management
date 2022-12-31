@@ -3,8 +3,8 @@ import { Alert, Pagination } from "@mui/material";
 import { axiosInstance } from "../../axios/axiosIntercepters";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
-import BookCardSkeleton from "./bookCardSkeleton";
-const BookCard = lazy(() => import("./bookCard"));
+import BookCardSkeleton from "./bookHome/bookCardSkeleton";
+const BookCard = lazy(() => import("./bookHome/bookCard"));
 
 const Books = () => {
   const [books, setBooks] = useState([]);

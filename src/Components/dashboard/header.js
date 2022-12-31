@@ -16,6 +16,7 @@ import logo from "../../assests/logo.png";
 function Header() {
   const navigate = useNavigate();
   const { user } = useAuthContext();
+  const { role } = user;
 
   return (
     <AppBar position="static">
@@ -53,15 +54,17 @@ function Header() {
             >
               Books
             </Typography>
-            {user.role === "admin" && (
+            {(role === "admin" || role === "librarian") && (
               <Box style={{ marginLeft: "50px" }}>
                 <Button
                   variant="contained"
                   color="error"
-                  onClick={() => navigate("/upload-book")}
+                  onClick={() =>
+                    navigate(role === "admin" ? "/upload-book" : "/issue-book")
+                  }
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  Upload book
+                  {role === "admin" ? "Upload book" : "Issue book"}
                 </Button>
               </Box>
             )}

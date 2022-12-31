@@ -44,8 +44,10 @@ axiosInstance.interceptors.request.use(async (req) => {
         accessToken = res.data.accessToken;
       })
       .catch((error) => {
+        window.location.replace = "/login";
         localStorage.removeItem("accessToken");
         localStorage.removeItem("userData");
+        console.log(error.message);
       });
   }
   req.headers.Authorization = `Bearer ${accessToken}`;

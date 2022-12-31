@@ -1,12 +1,15 @@
 import React, { Suspense, lazy } from "react";
 import { CircularProgress } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
+const IssueBook = lazy(() => import("./Components/books/issueBook"));
 const Login = lazy(() => import("./Components/auth/login"));
 const SignUp = lazy(() => import("./Components/auth/signup"));
 const PrivateRoute = lazy(() => import("./Components/auth/privateRoute"));
 const Home = lazy(() => import("./Components/dashboard/home"));
-const UploadBooks = lazy(() => import("./Components/books/uploadBook"));
-const BookPage = lazy(() => import("./Components/books/book"));
+const UploadBooks = lazy(() =>
+  import("./Components/books/uploadBook/uploadBook")
+);
+const BookPage = lazy(() => import("./Components/books/singleBook/book"));
 const SearchPage = lazy(() => import("./Components/dashboard/searchPage"));
 const NotFoundPage = lazy(() => import("./Components/error/404page"));
 
@@ -54,6 +57,14 @@ function App() {
             element={
               <Suspense fallback={<CircularProgress />}>
                 <UploadBooks />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/issue-book"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <IssueBook />
               </Suspense>
             }
           />
